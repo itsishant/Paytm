@@ -8,14 +8,14 @@ const {authMiddleware} = require("../middleware");
 const router = express.Router();
 
 const signupSchema = zod.object({
-    username: zod.string(),
+    email: zod.string(),
     password: zod.string(),
     firstname: zod.string(),
     lastname: zod.string()
 });
 
 const signinSchema = zod.object({
-    username: zod.string(),
+    email: zod.string(),
     password: zod.string()
 })
 
@@ -30,7 +30,7 @@ router.post("/signup", async (req, res) => {
     }
 
     const existingUser = await User.findOne({
-        username: body.username
+        email: body.e
     })
 
     if(existingUser){
@@ -40,7 +40,7 @@ router.post("/signup", async (req, res) => {
     }
 
     const user = await User.create({
-        username: req.body.username,
+        email: req.body.email,
         password: req.body.password,
         firstname: req.body.firstname,
         lastname: req.body.lastname
@@ -77,7 +77,7 @@ router.post("/signin", async (req,res) => {
     }
 
     const user = await User.findOne({
-        username: req.body.username,
+        email: req.body.eamil,
         password: req.body.password
     })
 
@@ -121,26 +121,26 @@ router.put("/", authMiddleware, async (req, res) => {
   
   
 
-router.get("/bulk", async (req, res) => {
+  router.get("/bulk", async (req, res) => {
     const filter = req.query.filter || "";
 
     const users = await User.find({
         $or: [{
-            firstName: {
+            firstname: {
                 "$regex": filter
             }
         }, {
-            lastName: {
-                "$regex": filter
+            lastname: {
+                "$regex": filter 
             }
         }]
     })
 
     res.json({
         user: users.map(user => ({
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
             _id: user._id
         }))
     })

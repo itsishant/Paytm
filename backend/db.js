@@ -6,7 +6,7 @@ const MONGO_URL = process.env.MONGO_URL;
 mongoose.connect(MONGO_URL);
 
 const userSchema = mongoose.Schema({
-    username: String,
+    email: String,
     password: String,
     firstname: String,
     lastname: String
