@@ -16,9 +16,9 @@ router.get("/getBalance", authMiddleware, async (req ,res) => {
         })
     }
 
-    res.status(400).json({
-        balance: account.balance
-    })
+res.status(200).json({ balance: account.balance });
+
+
 
 })
 

@@ -29,27 +29,28 @@ export const Users = () => {
     </>
 }
 
-function User({user}) {
-    const navigate = useNavigate();
+function User({ user }) {
+  const navigate = useNavigate();
 
-    return <div className="flex justify-between">
-        <div className="flex">
-            <div className="rounded-full h-12 w-12 bg-slate-200 flex justify-center mt-1 mr-2">
-                <div className="flex flex-col justify-center h-full text-xl">
-                    {user.firstname[0]}
-                </div>
-            </div>
-            <div className="flex flex-col justify-center h-full">
-                <div>
-                    {user.firstname} {user.lastname}
-                </div>
-            </div>
+  return (
+    <div className="flex flex-col sm:flex-row justify-between sm:items-center sm:space-x-0 mt-4">
+      <div className="flex items-center">
+        <div className="rounded-full h-12 w-12 bg-black text-white flex justify-center items-center mr-2 text-xl">
+          {user.firstname[0]}
         </div>
+        <div className="font-semibold">
+          {user.firstname} {user.lastname}
+        </div>
+      </div>
 
-        <div className="flex flex-col justify-center h-full">
-            <Button onClick={(e) => {
-                navigate("/send?id=" + user?._id + "&name=" + user?.firstname)
-            }} label={"Send Money"} />
-        </div>
+      <div className="flex justify-end sm:justify-center mt-2 sm:mt-0">
+        <Button
+          onClick={() => {
+            navigate("/send?id=" + user?._id + "&name=" + user?.firstname);
+          }}
+          label={"Send Money"}
+        />
+      </div>
     </div>
+  );
 }

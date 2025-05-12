@@ -19,6 +19,7 @@ export const Home = () => {
             </div>
             <div className="pl-16 md:pl-18 pt-4 text-lg md:text-xl text-gray-600">
                 Send, receive, and manage money effortlessly with ShazorPay ♥️
+                
             </div>
             {/* <div className="pl-8 pt-4">
         <TypeAnimation

@@ -15,7 +15,7 @@ const signupSchema = zod.object({
 });
 
 const signinSchema = zod.object({
-    email: zod.string(),
+    email: zod.string().email(),
     password: zod.string()
 })
 
@@ -71,13 +71,13 @@ router.post("/signin", async (req,res) => {
     const body = req.body;
     const { success } = signinSchema.safeParse(body);
     if(!success){
-        return res.status(411).json({
+        return res.status(400).json({
             message: "Invaild Inputs"
         })
     }
 
     const user = await User.findOne({
-        email: req.body.eamil,
+        email: req.body.email,
         password: req.body.password
     })
 
@@ -86,13 +86,15 @@ router.post("/signin", async (req,res) => {
             userId: user._id
         }, JWT_SECRET);
 
-        res.json({
-            token: token
-        })
+       res.json({
+  success: true,
+  token: token
+});
+
         return;
     }
 
-    return res.status(411).json({
+    return res.status(400).json({
         message: "Error while logging in"
     })
 
